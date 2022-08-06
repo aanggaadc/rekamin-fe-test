@@ -21,7 +21,7 @@ export default function Home() {
             <Header />
 
             <div className='home-container'>
-                <Card />
+                <Card handleShowModalCreateEdit={handleShowModalCreateEdit} />
                 <Card />
                 <Card />
                 <Card />

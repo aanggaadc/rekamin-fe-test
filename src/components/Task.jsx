@@ -1,6 +1,6 @@
 import React from 'react'
 import './Task.css'
-import Completed from '../public/assets/Completed.svg'
+import Completed from '../assets/Completed.svg'
 import { BsThreeDots } from "react-icons/bs";
 
 export default function Task() {

@@ -4,7 +4,7 @@ import './Card.css'
 
 import { GrAddCircle } from "react-icons/gr";
 
-export default function Card() {
+export default function Card({ handleShowModalCreateEdit }) {
     return (
         <div className='card-container'>
             <div className='group-title'>
@@ -17,10 +17,10 @@ export default function Card() {
 
             <Task />
 
-            <div className='create-task'>
+            <button onClick={handleShowModalCreateEdit} className='create-task'>
                 <GrAddCircle />
                 New Task
-            </div>
+            </button>
         </div>
     )
 }

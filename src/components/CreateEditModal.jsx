@@ -40,7 +40,7 @@ export default function CreateEditModal({ show, handleClose }) {
                             <div className='modalcreate-footer'>
                                 <button onClick={handleClose}
                                     style={{ color: "#000", background: "#fff", width: "67px" }} >Cancel</button>
-                                <button style={{ color: "#fff", background: "#01959F", width: "97px" }} >Save Task</button>
+                                <button type='submit' style={{ color: "#fff", background: "#01959F", width: "97px" }} >Save Task</button>
                             </div>
                         </Form>
                     )}
