@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Home.css'
 import Header from '../../components/Header'
 import Card from '../../components/Card'
+import ModalDelete from '../../components/ModalDelete'
 
 export default function Home() {
+    // MODAL DELETE
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const handleCloseModalDelete = () => setShowModalDelete(false);
+    const handleShowModalDelete = () => setShowModalDelete(true);
+
     return (
-        <div>
+        <>
             <Header />
 
             <div className='home-container'>
@@ -14,6 +20,8 @@ export default function Home() {
                 <Card />
                 <Card />
             </div>
-        </div>
+
+            <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} />
+        </>
     )
 }
