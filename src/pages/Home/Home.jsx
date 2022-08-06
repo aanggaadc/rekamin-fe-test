@@ -3,8 +3,14 @@ import './Home.css'
 import Header from '../../components/Header'
 import Card from '../../components/Card'
 import ModalDelete from '../../components/ModalDelete'
+import CreateEditModal from '../../components/CreateEditModal'
 
 export default function Home() {
+    // MODAL CREATE & EDIT
+    const [showModalCreateEdit, setShowModalCreateEdit] = useState(false);
+    const handleCloseModalCreateEdit = () => setShowModalCreateEdit(false);
+    const handleShowModalCreateEdit = () => setShowModalCreateEdit(true);
+
     // MODAL DELETE
     const [showModalDelete, setShowModalDelete] = useState(false);
     const handleCloseModalDelete = () => setShowModalDelete(false);
@@ -22,6 +28,7 @@ export default function Home() {
             </div>
 
             <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} />
+            <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} />
         </>
     )
 }
