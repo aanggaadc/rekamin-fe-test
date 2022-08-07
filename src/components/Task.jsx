@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Task.css'
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -17,10 +17,15 @@ import { BsThreeDots } from "react-icons/bs";
 import Axios from 'axios'
 import { toast } from 'react-toastify'
 
-export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId }) {
+export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId, previousId }) {
     const [dropdown, setDropdown] = useState(false)
-    const reqBody = {
+    const reqBodyRight = {
         target_todo_id: nextId,
+        name: name
+    }
+
+    const reqBodyLeft = {
+        target_todo_id: previousId,
         name: name
     }
     const progressHandler = () => {
@@ -50,7 +55,16 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
     }
 
     const moveTaskRight = () => {
-        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBody)
+        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyRight)
+            .then(() => {
+                toast.success("Successfully move task")
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
+
+    const moveTaskLeft = () => {
+        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyLeft)
             .then(() => {
                 toast.success("Successfully move task")
             }).catch((error) => {
@@ -72,7 +86,7 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
             <div className='dropdown-task' style={dropdown ? { display: "block" } : {}}>
                 <ul >
                     <li onClick={moveTaskRight}><BiRightArrowAlt /> Move Right</li>
-                    <li><BiLeftArrowAlt /> Move Left</li>
+                    <li onClick={moveTaskLeft}><BiLeftArrowAlt /> Move Left</li>
                     <li onClick={() => {
 
                     }}><BiEditAlt /> Edit</li>

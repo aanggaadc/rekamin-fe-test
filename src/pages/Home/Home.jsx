@@ -63,12 +63,14 @@ export default function Home() {
                     let previousCard = {}
                     if (elements.length - 1 === index) {
                         previousCard = elements[index - 1]
+                    } else if (index === 0) {
+                        nextCard = elements[index + 1]
                     } else {
                         nextCard = elements[index + 1]
                         previousCard = elements[index - 1]
                     }
 
-                    return <Card key={index} id={item.id} title={item.title} description={item.description} nextId={nextCard.id}
+                    return <Card key={index} id={item.id} title={item.title} description={item.description} nextId={nextCard.id} previousId={previousCard.id}
                         handleShowModalCreateEdit={handleShowModalCreateEdit} handleShowModalDelete={handleShowModalDelete} />
                 })}
             </div>
