@@ -13,6 +13,7 @@ export default function ModalDelete({ show, handleClose, taskId, groupId }) {
             }).catch((error) => {
                 console.log(error)
             })
+        handleClose()
     }
     return (
         <Modal show={show} onHide={handleClose}>
@@ -34,7 +35,7 @@ export default function ModalDelete({ show, handleClose, taskId, groupId }) {
                         style={{ color: "#000", background: "#fff" }} >Cancel</button>
                     <button onClick={() => {
                         deleteTask()
-                    }} style={{ color: "#fff", background: "#E11428" }} >Delete</button>
+                    }} style={{ color: "#fff", background: "#E11428" }}>Delete</button>
                 </div>
             </div>
         </Modal>

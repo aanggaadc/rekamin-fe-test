@@ -13,7 +13,10 @@ export default function Home() {
     const [groupId, setGroupId] = useState("")
     // MODAL CREATE & EDIT
     const [showModalCreateEdit, setShowModalCreateEdit] = useState(false);
-    const handleCloseModalCreateEdit = () => setShowModalCreateEdit(false);
+    const handleCloseModalCreateEdit = () => {
+        setShowModalCreateEdit(false)
+        setTaskId("")
+    }
     const handleShowModalCreateEdit = (id) => {
         setShowModalCreateEdit(true)
         setTaskId(id)
@@ -26,7 +29,11 @@ export default function Home() {
 
     // MODAL DELETE
     const [showModalDelete, setShowModalDelete] = useState(false);
-    const handleCloseModalDelete = () => setShowModalDelete(false);
+    const handleCloseModalDelete = () => {
+        setShowModalDelete(false)
+        setGroupId("")
+        setTaskId("")
+    }
     const handleShowModalDelete = (groupId, taskId) => {
         setShowModalDelete(true)
         setGroupId(groupId)
@@ -51,8 +58,17 @@ export default function Home() {
             <Header handleShowModalGroup={handleShowModalGroup} />
 
             <div className='home-container'>
-                {groupTask.map((item, index) => {
-                    return <Card key={index} id={item.id} title={item.title} description={item.description}
+                {groupTask.map((item, index, elements) => {
+                    let nextCard = {}
+                    let previousCard = {}
+                    if (elements.length - 1 === index) {
+                        previousCard = elements[index - 1]
+                    } else {
+                        nextCard = elements[index + 1]
+                        previousCard = elements[index - 1]
+                    }
+
+                    return <Card key={index} id={item.id} title={item.title} description={item.description} nextId={nextCard.id}
                         handleShowModalCreateEdit={handleShowModalCreateEdit} handleShowModalDelete={handleShowModalDelete} />
                 })}
             </div>

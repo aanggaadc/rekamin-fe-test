@@ -14,9 +14,15 @@ import NinetyPercent from '../assets/NinetyPercent.svg'
 import Incompleted from '../assets/Incompleted.svg'
 import Completed from '../assets/Completed.svg'
 import { BsThreeDots } from "react-icons/bs";
+import Axios from 'axios'
+import { toast } from 'react-toastify'
 
-export default function Task({ groupId, taskId, name, progress, showCreateModal, showDeleteModal }) {
+export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId }) {
     const [dropdown, setDropdown] = useState(false)
+    const reqBody = {
+        target_todo_id: nextId,
+        name: name
+    }
     const progressHandler = () => {
         if (progress === 0) {
             return <img src={Incompleted} alt="TenPercent" />
@@ -43,9 +49,14 @@ export default function Task({ groupId, taskId, name, progress, showCreateModal,
         }
     }
 
-
-    useEffect(() => {
-    })
+    const moveTaskRight = () => {
+        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBody)
+            .then(() => {
+                toast.success("Successfully move task")
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
 
     return (
         <div className='task-container'>
@@ -60,7 +71,7 @@ export default function Task({ groupId, taskId, name, progress, showCreateModal,
 
             <div className='dropdown-task' style={dropdown ? { display: "block" } : {}}>
                 <ul >
-                    <li><BiRightArrowAlt /> Move Right</li>
+                    <li onClick={moveTaskRight}><BiRightArrowAlt /> Move Right</li>
                     <li><BiLeftArrowAlt /> Move Left</li>
                     <li onClick={() => {
 
