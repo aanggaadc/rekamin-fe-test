@@ -26,11 +26,11 @@ export default function CreateEditModal({ show, handleClose, taskId }) {
                     onSubmit={(values) => {
                         Axios.post(`todos/${taskId}/items`, values)
                             .then((response) => {
-                                console.log(response)
                                 toast.success("Successfully create task")
                             }).catch((error) => {
                                 console.log(error)
                             })
+                        handleClose()
                     }
                     }
                 >

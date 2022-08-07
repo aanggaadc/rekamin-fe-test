@@ -18,7 +18,7 @@ export default function Card({ id, title, description, handleShowModalCreateEdit
 
     useEffect(() => {
         getTask()
-    }, [])
+    }, [task])
 
     return (
         <div className='card-container'>
