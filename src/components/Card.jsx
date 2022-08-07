@@ -4,15 +4,15 @@ import './Card.css'
 
 import { GrAddCircle } from "react-icons/gr";
 
-export default function Card({ handleShowModalCreateEdit }) {
+export default function Card({ title, description, handleShowModalCreateEdit }) {
     return (
         <div className='card-container'>
             <div className='group-title'>
-                Group Task 1
+                {title}
             </div>
 
             <div className='date'>
-                january - March
+                {description}
             </div>
 
             <Task />

@@ -25,8 +25,7 @@ export default function GroupModal({ show, handleClose }) {
                     }}
                     onSubmit={(values) => {
                         Axios.post('todos', values)
-                            .then((response) => {
-                                console.log(response)
+                            .then(() => {
                                 toast.success("Successfully create group task")
                             }).catch((error) => {
                                 console.log(error)
