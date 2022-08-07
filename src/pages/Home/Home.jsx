@@ -9,10 +9,14 @@ import Axios from 'axios'
 
 export default function Home() {
     const [groupTask, setGroupTask] = useState([])
+    const [taskId, setTaskId] = useState("")
     // MODAL CREATE & EDIT
     const [showModalCreateEdit, setShowModalCreateEdit] = useState(false);
     const handleCloseModalCreateEdit = () => setShowModalCreateEdit(false);
-    const handleShowModalCreateEdit = () => setShowModalCreateEdit(true);
+    const handleShowModalCreateEdit = (id) => {
+        setShowModalCreateEdit(true)
+        setTaskId(id)
+    }
 
     // MODAL GROUP
     const [showModalGroup, setShowModalGroup] = useState(false);
@@ -43,14 +47,13 @@ export default function Home() {
 
             <div className='home-container'>
                 {groupTask.map((item, index) => {
-                    return <Card key={index} title={item.title} description={item.description}
+                    return <Card key={index} id={item.id} title={item.title} description={item.description}
                         handleShowModalCreateEdit={handleShowModalCreateEdit} />
                 })}
-
             </div>
 
             <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} />
-            <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} />
+            <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} taskId={taskId} />
             <GroupModal show={showModalGroup} handleClose={handleCloseModalGroup} />
         </>
     )

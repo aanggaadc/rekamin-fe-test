@@ -4,9 +4,10 @@ import './CreateEditModal.css'
 import { IoCloseSharp } from "react-icons/io5";
 import { Form, Formik } from 'formik'
 import { toast } from 'react-toastify'
+import Axios from 'axios'
 
 
-export default function CreateEditModal({ show, handleClose }) {
+export default function CreateEditModal({ show, handleClose, taskId }) {
     return (
         <Modal show={show} onHide={handleClose}>
             <div className='modalcreate-container'>
@@ -19,28 +20,37 @@ export default function CreateEditModal({ show, handleClose }) {
 
                 <Formik
                     initialValues={{
-                        id: "",
-                        email: ""
+                        name: "",
+                        progress_percentage: ""
                     }}
                     onSubmit={(values) => {
-
+                        Axios.post(`todos/${taskId}/items`, values)
+                            .then((response) => {
+                                console.log(response)
+                                toast.success("Successfully create task")
+                            }).catch((error) => {
+                                console.log(error)
+                            })
                     }
                     }
                 >
-                    {({ handleSubmit, handleChange }) => (
+                    {({ handleSubmit, handleChange, values }) => (
                         <Form>
                             <div className='modalcreate-body'>
                                 <label htmlFor="name">Task Name</label>
-                                <input className='task-name' type="text" />
+                                <input name='name' className='task-name' type="text"
+                                    onChange={handleChange} />
                                 <label htmlFor="progress">Progress</label>
-                                <input className='task-progress' type="text" />
+                                <input name='progress_percentage' className='task-progress' type="number"
+                                    onChange={handleChange} />
 
                             </div>
 
                             <div className='modalcreate-footer'>
                                 <button onClick={handleClose}
-                                    style={{ color: "#000", background: "#fff", width: "67px" }} >Cancel</button>
-                                <button type='submit' style={{ color: "#fff", background: "#01959F", width: "97px" }} >Save Task</button>
+                                    type="button" style={{ color: "#000", background: "#fff", width: "67px" }} >Cancel</button>
+                                <button onClick={handleSubmit}
+                                    type='submit' style={{ color: "#fff", background: "#01959F", width: "97px" }} >Save Task</button>
                             </div>
                         </Form>
                     )}
