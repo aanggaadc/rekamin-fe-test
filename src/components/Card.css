@@ -1,4 +1,4 @@
-.card-container{
+.card-container {
     width: 326px;
     height: fit-content;
     background: #F7FEFF;
@@ -30,6 +30,16 @@
 .card-container:nth-child(4n+4) {
     background: #F8FBF9;
     border: 1px solid #B8DBCA;
+}
+
+.group-title {
+    padding: 2px 8px;
+    width: fit-content;
+    height: auto;
+    background: #F7FEFF;
+    border: 1px solid #4DB5BC;
+    border-radius: 4px;
+    color: #01959F;
 }
 
 .date {

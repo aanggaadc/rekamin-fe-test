@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Task.css'
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -15,7 +15,7 @@ import Incompleted from '../assets/Incompleted.svg'
 import Completed from '../assets/Completed.svg'
 import { BsThreeDots } from "react-icons/bs";
 
-export default function Task({ name, progress }) {
+export default function Task({ groupId, taskId, name, progress, showCreateModal, showDeleteModal }) {
     const [dropdown, setDropdown] = useState(false)
     const progressHandler = () => {
         if (progress === 0) {
@@ -42,6 +42,11 @@ export default function Task({ name, progress }) {
             return <img src={Completed} alt="TwentyPercent" />
         }
     }
+
+
+    useEffect(() => {
+    })
+
     return (
         <div className='task-container'>
             <div className='top'>
@@ -57,9 +62,14 @@ export default function Task({ name, progress }) {
                 <ul >
                     <li><BiRightArrowAlt /> Move Right</li>
                     <li><BiLeftArrowAlt /> Move Left</li>
-                    <li><BiEditAlt /> Edit</li>
-                    <li><BiTrash /> Delete</li>
+                    <li onClick={() => {
+
+                    }}><BiEditAlt /> Edit</li>
+                    <li onClick={() => {
+                        showDeleteModal(groupId, taskId)
+                    }}><BiTrash /> Delete</li>
                 </ul>
+
             </div>
         </div>
     )

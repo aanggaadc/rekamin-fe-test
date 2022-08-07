@@ -10,6 +10,7 @@ import Axios from 'axios'
 export default function Home() {
     const [groupTask, setGroupTask] = useState([])
     const [taskId, setTaskId] = useState("")
+    const [groupId, setGroupId] = useState("")
     // MODAL CREATE & EDIT
     const [showModalCreateEdit, setShowModalCreateEdit] = useState(false);
     const handleCloseModalCreateEdit = () => setShowModalCreateEdit(false);
@@ -26,7 +27,11 @@ export default function Home() {
     // MODAL DELETE
     const [showModalDelete, setShowModalDelete] = useState(false);
     const handleCloseModalDelete = () => setShowModalDelete(false);
-    const handleShowModalDelete = () => setShowModalDelete(true);
+    const handleShowModalDelete = (groupId, taskId) => {
+        setShowModalDelete(true)
+        setGroupId(groupId)
+        setTaskId(taskId)
+    }
 
     const getGroupTask = () => {
         Axios.get("todos")
@@ -48,11 +53,11 @@ export default function Home() {
             <div className='home-container'>
                 {groupTask.map((item, index) => {
                     return <Card key={index} id={item.id} title={item.title} description={item.description}
-                        handleShowModalCreateEdit={handleShowModalCreateEdit} />
+                        handleShowModalCreateEdit={handleShowModalCreateEdit} handleShowModalDelete={handleShowModalDelete} />
                 })}
             </div>
 
-            <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} />
+            <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} taskId={taskId} groupId={groupId} />
             <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} taskId={taskId} />
             <GroupModal show={showModalGroup} handleClose={handleCloseModalGroup} />
         </>
