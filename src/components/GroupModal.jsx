@@ -30,6 +30,8 @@ export default function GroupModal({ show, handleClose }) {
                             }).catch((error) => {
                                 console.log(error)
                             })
+
+                        handleClose()
                     }
                     }
                 >

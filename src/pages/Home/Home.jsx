@@ -39,7 +39,7 @@ export default function Home() {
 
     useEffect(() => {
         getGroupTask()
-    }, [])
+    }, [groupTask])
 
     return (
         <>
