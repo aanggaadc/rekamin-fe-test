@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Task.css'
+import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
+import { BiEditAlt, BiTrash } from "react-icons/bi";
 import TenPercent from '../assets/TenPercent.svg'
 import TwentyPercent from '../assets/TwentyPercent.svg'
 import ThirtyPercent from '../assets/ThirtyPercent.svg'
@@ -14,6 +16,7 @@ import Completed from '../assets/Completed.svg'
 import { BsThreeDots } from "react-icons/bs";
 
 export default function Task({ name, progress }) {
+    const [dropdown, setDropdown] = useState(false)
     const progressHandler = () => {
         if (progress === 0) {
             return <img src={Incompleted} alt="TenPercent" />
@@ -47,7 +50,16 @@ export default function Task({ name, progress }) {
             <div className='line' />
             <div className='bottom'>
                 {progressHandler()}
-                <BsThreeDots color='#1D1F20' />
+                <BsThreeDots style={{ cursor: "pointer" }} onClick={() => setDropdown(!dropdown)} color='#1D1F20' />
+            </div>
+
+            <div className='dropdown-task' style={dropdown ? { display: "block" } : {}}>
+                <ul >
+                    <li><BiRightArrowAlt /> Move Right</li>
+                    <li><BiLeftArrowAlt /> Move Left</li>
+                    <li><BiEditAlt /> Edit</li>
+                    <li><BiTrash /> Delete</li>
+                </ul>
             </div>
         </div>
     )
