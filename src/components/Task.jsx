@@ -17,7 +17,7 @@ import { BsThreeDots } from "react-icons/bs";
 import Axios from 'axios'
 import { toast } from 'react-toastify'
 
-export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId, previousId }) {
+export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId, previousId, firstCard, lastCard }) {
     const [dropdown, setDropdown] = useState(false)
     const reqBodyRight = {
         target_todo_id: nextId,
@@ -55,21 +55,29 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
     }
 
     const moveTaskRight = () => {
-        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyRight)
-            .then(() => {
-                toast.success("Successfully move task")
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (lastCard) {
+            toast.error("Cannot move task")
+        } else {
+            Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyRight)
+                .then(() => {
+                    toast.success("Successfully move task")
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
     const moveTaskLeft = () => {
-        Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyLeft)
-            .then(() => {
-                toast.success("Successfully move task")
-            }).catch((error) => {
-                console.log(error)
-            })
+        if (firstCard) {
+            toast.error("Cannot move task")
+        } else {
+            Axios.patch(`todos/${groupId}/items/${taskId}`, reqBodyLeft)
+                .then(() => {
+                    toast.success("Successfully move task")
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
     }
 
     return (

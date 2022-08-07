@@ -59,18 +59,21 @@ export default function Home() {
 
             <div className='home-container'>
                 {groupTask.map((item, index, elements) => {
+                    const firstCard = index === 0
+                    const lastCard = elements.length - 1 === index
                     let nextCard = {}
                     let previousCard = {}
-                    if (elements.length - 1 === index) {
+                    if (lastCard) {
                         previousCard = elements[index - 1]
-                    } else if (index === 0) {
+                    } else if (firstCard) {
                         nextCard = elements[index + 1]
                     } else {
                         nextCard = elements[index + 1]
                         previousCard = elements[index - 1]
                     }
 
-                    return <Card key={index} id={item.id} title={item.title} description={item.description} nextId={nextCard.id} previousId={previousCard.id}
+                    return <Card key={index} id={item.id} title={item.title} description={item.description}
+                        nextId={nextCard.id} previousId={previousCard.id} firstCard={firstCard} lastCard={lastCard}
                         handleShowModalCreateEdit={handleShowModalCreateEdit} handleShowModalDelete={handleShowModalDelete} />
                 })}
             </div>

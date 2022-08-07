@@ -5,7 +5,7 @@ import './Card.css'
 import Axios from 'axios'
 import { GrAddCircle } from "react-icons/gr";
 
-export default function Card({ id, title, description, handleShowModalCreateEdit, handleShowModalDelete, nextId, previousId }) {
+export default function Card({ id, title, description, handleShowModalCreateEdit, handleShowModalDelete, nextId, previousId, firstCard, lastCard }) {
     const [task, setTask] = useState([])
     const getTask = () => {
         Axios.get(`todos/${id}/items`)
@@ -31,7 +31,8 @@ export default function Card({ id, title, description, handleShowModalCreateEdit
             </div>
             {task.length > 0 ? task.map((item, index) => {
                 return <Task key={index} groupId={id} taskId={item.id} name={item.name} progress={item.progress_percentage}
-                    nextId={nextId} previousId={previousId} showCreateEditModal={handleShowModalCreateEdit} showDeleteModal={handleShowModalDelete} />
+                    nextId={nextId} previousId={previousId} firstCard={firstCard} lastCard={lastCard}
+                    showCreateEditModal={handleShowModalCreateEdit} showDeleteModal={handleShowModalDelete} />
             }) :
                 <EmptyTask />
             }
