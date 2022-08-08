@@ -55,6 +55,10 @@ export default function CreateEditModal({ show, handleClose, groupId, taskId }) 
                     onSubmit={(values) => {
                         if (taskId) {
                             // API NOT FOUND IN DOCUMENTATION
+                            setInitialValues({
+                                name: "",
+                                progress_percentage: "",
+                            })
                             toast.warning("API not found in documentation")
                         } else {
                             Axios.post(`todos/${groupId}/items`, values)
