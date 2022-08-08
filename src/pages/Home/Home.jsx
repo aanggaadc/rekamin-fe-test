@@ -17,9 +17,10 @@ export default function Home() {
         setShowModalCreateEdit(false)
         setTaskId("")
     }
-    const handleShowModalCreateEdit = (id) => {
+    const handleShowModalCreateEdit = (groupId, taskId) => {
         setShowModalCreateEdit(true)
-        setTaskId(id)
+        setTaskId(taskId)
+        setGroupId(groupId)
     }
 
     // MODAL GROUP
@@ -71,14 +72,14 @@ export default function Home() {
                         previousCard = elements[index - 1]
                     }
 
-                    return <Card key={index} id={item.id} title={item.title} description={item.description}
+                    return <Card key={index} groupId={item.id} title={item.title} description={item.description}
                         nextId={nextCard.id} previousId={previousCard.id} firstCard={firstCard} lastCard={lastCard}
                         handleShowModalCreateEdit={handleShowModalCreateEdit} handleShowModalDelete={handleShowModalDelete} />
                 })}
             </div>
 
             <ModalDelete show={showModalDelete} handleClose={handleCloseModalDelete} taskId={taskId} groupId={groupId} />
-            <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} taskId={taskId} />
+            <CreateEditModal show={showModalCreateEdit} handleClose={handleCloseModalCreateEdit} taskId={taskId} groupId={groupId} />
             <GroupModal show={showModalGroup} handleClose={handleCloseModalGroup} />
         </>
     )

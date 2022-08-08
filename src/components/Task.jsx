@@ -17,7 +17,7 @@ import { BsThreeDots } from "react-icons/bs";
 import Axios from 'axios'
 import { toast } from 'react-toastify'
 
-export default function Task({ groupId, taskId, name, progress, showDeleteModal, nextId, previousId, firstCard, lastCard }) {
+export default function Task({ groupId, taskId, name, progress, showDeleteModal, showCreateEditModal, nextId, previousId, firstCard, lastCard }) {
     const [dropdown, setDropdown] = useState(false)
     const reqBodyRight = {
         target_todo_id: nextId,
@@ -96,7 +96,7 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
                     <li onClick={moveTaskRight}><BiRightArrowAlt /> Move Right</li>
                     <li onClick={moveTaskLeft}><BiLeftArrowAlt /> Move Left</li>
                     <li onClick={() => {
-
+                        showCreateEditModal(groupId, taskId)
                     }}><BiEditAlt /> Edit</li>
                     <li onClick={() => {
                         showDeleteModal(groupId, taskId)

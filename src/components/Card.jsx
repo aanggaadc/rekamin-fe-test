@@ -5,12 +5,12 @@ import './Card.css'
 import Axios from 'axios'
 import { GrAddCircle } from "react-icons/gr";
 
-export default function Card({ id, title, description, handleShowModalCreateEdit, handleShowModalDelete, nextId, previousId, firstCard, lastCard }) {
+export default function Card({ groupId, title, description, handleShowModalCreateEdit, handleShowModalDelete, nextId, previousId, firstCard, lastCard }) {
     const [task, setTask] = useState([])
 
     useEffect(() => {
         const getTask = () => {
-            Axios.get(`todos/${id}/items`)
+            Axios.get(`todos/${groupId}/items`)
                 .then((response) => {
                     setTask(response.data)
                 }).catch((error) => {
@@ -18,7 +18,7 @@ export default function Card({ id, title, description, handleShowModalCreateEdit
                 })
         }
         getTask()
-    }, [task, id])
+    }, [task, groupId])
 
     return (
         <div className='card-container'>
@@ -30,7 +30,7 @@ export default function Card({ id, title, description, handleShowModalCreateEdit
                 {description}
             </div>
             {task.length > 0 ? task.map((item, index) => {
-                return <Task key={index} groupId={id} taskId={item.id} name={item.name} progress={item.progress_percentage}
+                return <Task key={index} groupId={groupId} taskId={item.id} name={item.name} progress={item.progress_percentage}
                     nextId={nextId} previousId={previousId} firstCard={firstCard} lastCard={lastCard}
                     showCreateEditModal={handleShowModalCreateEdit} showDeleteModal={handleShowModalDelete} />
             }) :
@@ -38,7 +38,7 @@ export default function Card({ id, title, description, handleShowModalCreateEdit
             }
 
             <button type='button' onClick={() => {
-                handleShowModalCreateEdit(id)
+                handleShowModalCreateEdit(groupId)
             }} className='create-task'>
                 <GrAddCircle />
                 New Task

@@ -7,13 +7,13 @@ import { toast } from 'react-toastify'
 import Axios from 'axios'
 
 
-export default function CreateEditModal({ show, handleClose, taskId }) {
+export default function CreateEditModal({ show, handleClose, groupId, taskId }) {
     return (
         <Modal show={show} onHide={handleClose}>
             <div className='modalcreate-container'>
                 <div className='modalcreate-head'>
                     <div className='modalcreate-title'>
-                        Create Task
+                        {taskId ? "Edit Task" : "Create Task"}
                     </div>
                     <IoCloseSharp style={{ cursor: "pointer" }} onClick={handleClose} size={25} />
                 </div>
@@ -24,12 +24,17 @@ export default function CreateEditModal({ show, handleClose, taskId }) {
                         progress_percentage: ""
                     }}
                     onSubmit={(values) => {
-                        Axios.post(`todos/${taskId}/items`, values)
-                            .then((response) => {
-                                toast.success("Successfully create task")
-                            }).catch((error) => {
-                                console.log(error)
-                            })
+                        if (taskId) {
+                            // API NOT FOUND IN DOCUMENTATION
+                            toast.warning("API not found in documentation")
+                        } else {
+                            Axios.post(`todos/${groupId}/items`, values)
+                                .then(() => {
+                                    toast.success("Successfully create task")
+                                }).catch((error) => {
+                                    console.log(error)
+                                })
+                        }
                         handleClose()
                     }
                     }
