@@ -1,8 +1,6 @@
 .card-container {
     width: 326px;
     height: fit-content;
-    background: #F7FEFF;
-    border: 1px solid #01959F;
     border-radius: 4px;
     padding: 16px;
     font-family: 'Nunito', sans-serif;
@@ -32,14 +30,35 @@
     border: 1px solid #B8DBCA;
 }
 
-.group-title {
+.card-container .group-title {
     padding: 2px 8px;
     width: fit-content;
     height: auto;
-    background: #F7FEFF;
-    border: 1px solid #4DB5BC;
     border-radius: 4px;
+}
+
+.card-container:nth-child(4n+1) .group-title{
+    background: #F7FEFF;
     color: #01959F;
+    border: 1px solid #4DB5BC;
+}
+
+.card-container:nth-child(4n+2) .group-title{
+    background: #FFFCF5;
+    color: #FA9810;
+    border: 1px solid #FEEABC;
+}
+
+.card-container:nth-child(4n+3) .group-title{
+    background: #FFFAFA;
+    color: #E11428;
+    border: 1px solid #F5B1B7;
+}
+
+.card-container:nth-child(4n+4) .group-title{
+    background: #F8FBF9;
+    color: #43936C;
+    border: 1px solid #B8DBCA;
 }
 
 .date {
