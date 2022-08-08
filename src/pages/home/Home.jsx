@@ -40,16 +40,15 @@ export default function Home() {
         setTaskId(taskId)
     }
 
-    const getGroupTask = () => {
-        Axios.get("todos")
-            .then((response) => {
-                setGroupTask(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
-    }
-
     useEffect(() => {
+        const getGroupTask = () => {
+            Axios.get("todos")
+                .then((response) => {
+                    setGroupTask(response.data)
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
         getGroupTask()
     }, [groupTask])
 

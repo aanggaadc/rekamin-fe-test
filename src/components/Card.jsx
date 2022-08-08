@@ -7,18 +7,18 @@ import { GrAddCircle } from "react-icons/gr";
 
 export default function Card({ id, title, description, handleShowModalCreateEdit, handleShowModalDelete, nextId, previousId, firstCard, lastCard }) {
     const [task, setTask] = useState([])
-    const getTask = () => {
-        Axios.get(`todos/${id}/items`)
-            .then((response) => {
-                setTask(response.data)
-            }).catch((error) => {
-                console.log(error)
-            })
-    }
 
     useEffect(() => {
+        const getTask = () => {
+            Axios.get(`todos/${id}/items`)
+                .then((response) => {
+                    setTask(response.data)
+                }).catch((error) => {
+                    console.log(error)
+                })
+        }
         getTask()
-    }, [task])
+    }, [task, id])
 
     return (
         <div className='card-container'>
