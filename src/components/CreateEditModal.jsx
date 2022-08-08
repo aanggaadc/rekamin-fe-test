@@ -34,13 +34,19 @@ export default function CreateEditModal({ show, handleClose, groupId, taskId }) 
     }, [groupId, taskId])
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} backdrop="static" >
             <div className='modalcreate-container'>
                 <div className='modalcreate-head'>
                     <div className='modalcreate-title'>
                         {taskId ? "Edit Task" : "Create Task"}
                     </div>
-                    <IoCloseSharp style={{ cursor: "pointer" }} onClick={handleClose} size={25} />
+                    <IoCloseSharp style={{ cursor: "pointer" }} onClick={() => {
+                        setInitialValues({
+                            name: "",
+                            progress_percentage: "",
+                        })
+                        handleClose()
+                    }} size={25} />
                 </div>
 
                 <Formik
@@ -75,7 +81,13 @@ export default function CreateEditModal({ show, handleClose, groupId, taskId }) 
                             </div>
 
                             <div className='modalcreate-footer'>
-                                <button onClick={handleClose}
+                                <button onClick={() => {
+                                    setInitialValues({
+                                        name: "",
+                                        progress_percentage: "",
+                                    })
+                                    handleClose()
+                                }}
                                     type="button" style={{ color: "#000", background: "#fff", width: "67px" }} >Cancel</button>
                                 <button onClick={handleSubmit}
                                     type='submit' style={{ color: "#fff", background: "#01959F", width: "97px" }} >Save Task</button>
