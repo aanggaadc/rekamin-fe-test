@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Task.css'
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -19,6 +19,7 @@ import { toast } from 'react-toastify'
 
 export default function Task({ groupId, taskId, name, progress, showDeleteModal, showCreateEditModal, nextId, previousId, firstCard, lastCard }) {
     const [dropdown, setDropdown] = useState(false)
+
     const reqBodyRight = {
         target_todo_id: nextId,
         name: name
@@ -79,6 +80,15 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
                 })
         }
     }
+
+    useEffect(() => {
+        const closeDropdown = () => {
+            if (dropdown) {
+                setDropdown(false)
+            }
+        }
+        document.addEventListener('mousedown', closeDropdown)
+    }, [dropdown])
 
     return (
         <div className='task-container'>
