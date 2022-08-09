@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Task.css'
 import { BiRightArrowAlt, BiLeftArrowAlt } from "react-icons/bi";
 import { BiEditAlt, BiTrash } from "react-icons/bi";
@@ -19,6 +19,7 @@ import { toast } from 'react-toastify'
 
 export default function Task({ groupId, taskId, name, progress, showDeleteModal, showCreateEditModal, nextId, previousId, firstCard, lastCard }) {
     const [dropdown, setDropdown] = useState(false)
+    const menu = useRef()
 
     const reqBodyRight = {
         target_todo_id: nextId,
@@ -82,8 +83,8 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
     }
 
     useEffect(() => {
-        const closeDropdown = () => {
-            if (dropdown) {
+        const closeDropdown = (e) => {
+            if (menu.current && dropdown && !menu.current.contains(e.target)) {
                 setDropdown(false)
             }
         }
@@ -101,7 +102,7 @@ export default function Task({ groupId, taskId, name, progress, showDeleteModal,
                 <BsThreeDots style={{ cursor: "pointer" }} onClick={() => setDropdown(!dropdown)} color='#1D1F20' />
             </div>
 
-            <div className='dropdown-task' style={dropdown ? { display: "block" } : {}}>
+            <div ref={menu} className='dropdown-task' style={dropdown ? { display: "block" } : {}}>
                 <ul >
                     <li onClick={moveTaskRight}><BiRightArrowAlt /> Move Right</li>
                     <li onClick={moveTaskLeft}><BiLeftArrowAlt /> Move Left</li>
